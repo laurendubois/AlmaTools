@@ -1,6 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
 
+
+
+# This script pulls the MMS ID, Holding ID, Suppression, Library, And Location info from Alma into an output file with errors in a separate file
+
+
 # Read API key from file
 with open('PSB.txt', 'r') as file:
     key = file.read().strip()
