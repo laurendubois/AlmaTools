@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 
 
-# # This script pulls full holding XML based on MMS ID into an output file
+# This script pulls full holding XML based on MMS ID into an output file
 
 
 # Read API key from file
