@@ -3,8 +3,7 @@ from bs4 import BeautifulSoup
 
 
 
-# This script pulls the full XML record from Alma into the console
-
+# # This script pulls full holding XML based on MMS ID into an output file
 
 
 # Read API key from file
