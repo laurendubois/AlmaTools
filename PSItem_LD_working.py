@@ -52,7 +52,7 @@ def get_item_details(holding_id):
 def extract_item_details(xml_string):
     soup = BeautifulSoup(xml_string, 'xml')
     item_details = []
-    for item in soup.find_all('holding'):
+    for item in soup.find_all('item'):
         holding_num = item.find('holding_id').text.strip()
         pid = item.find('pid').text.strip()
         barcode = item.find('barcode').text.strip()
