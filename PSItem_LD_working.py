@@ -69,8 +69,8 @@ def write_item_details(filename, item_details):
         for item_detail in item_details:
             holding_num, pid, barcode, base_status, physical_material_type, process_type = item_detail
             file.write(
-                f"Holding Num: {holding_num}, Item PID: {pid}, Barcode: {barcode}, Base_Status: {base_status}, "
-                f"Physical_Material_Type: {physical_material_type}, Process Type: {process_type}\n")
+                f"Holding Num: {holding_num}|Item PID: {pid}|Barcode: {barcode}|Base_Status: {base_status}|"
+                f"Physical_Material_Type: {physical_material_type}|Process Type: {process_type}\n")
 
 
 # Loop through each Holding ID and retrieve item details
