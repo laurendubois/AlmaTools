@@ -2,6 +2,8 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 
+# This script pulls certain fields from the XML for many MMS ID into an output file
+
 # Constants for file names
 API_KEY_FILE = 'PSB.txt'
 MMS_IDS_FILE = 'bibs2.txt'
