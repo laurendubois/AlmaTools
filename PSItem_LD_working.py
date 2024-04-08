@@ -2,6 +2,8 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 
+# This script pulls certain fields from the XML into an output file
+
 # Constants for file names
 API_KEY_FILE = 'PSB.txt'
 HOLDING_IDS_FILE = 'items.txt'
