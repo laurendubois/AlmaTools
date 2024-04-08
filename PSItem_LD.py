@@ -2,7 +2,7 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 
-# This script writes full XML to output file for one MMS ID 
+# This script writes full XML to output file for one Holding/item
 
 # Constants for file names
 API_KEY_FILE = 'PSB.txt'
