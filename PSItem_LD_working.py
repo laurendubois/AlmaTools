@@ -37,7 +37,7 @@ with open(HOLDING_IDS_FILE, 'r') as file:
 
 # Function to retrieve barcodes for a given Holding ID
 def get_barcodes(holding_id):
-    url = f"{BASE_URL}bibs/9/holdings/{holding_id}/items/"  # Works if MMS ID hardcoded 991000010789705251
+    url = f"{BASE_URL}bibs/991000010789705251/holdings/{holding_id}/items/"  # Works if MMS ID hardcoded 991000010789705251
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
         item_xml = response.text
