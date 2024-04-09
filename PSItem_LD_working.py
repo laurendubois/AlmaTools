@@ -2,7 +2,7 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 
-# This script pulls certain item details based on Holding ID (?) into an output file
+# This script looks at a file of MMS and Holding IDs, and uses the Alma Sandbox API to extract certain item details from the XML into an output file
 
 # Constants for file names
 API_KEY_FILE = 'PSB.txt'
@@ -24,7 +24,7 @@ headers = {
 sys.stdout.write("Checking API key...")
 test_api = requests.get(BASE_URL + "bibs/test", headers=headers)
 if test_api.status_code == 400:
-    print("\nInvalid API key - please confirm key has r/w permission for /bibs", )
+    print("\nInvalid API key - please confirm key has r/w permission for /bibs")
     sys.exit()
 elif test_api.status_code != 200:
     print(f"\nError: Failed to connect to API. Status code: {test_api.status_code}")
@@ -32,25 +32,24 @@ elif test_api.status_code != 200:
 else:
     sys.stdout.write("OK\n")
 
-# Read Holding IDs from file
+# Read Holding IDs and MMS IDs from file
 with open(HOLDING_IDS_FILE, 'r') as file:
-    holding_ids = [line.strip() for line in file]
+    holding_mms_pairs = [line.strip().split('|') for line in file]
 
 
-# Function to item details for a given Holding ID
-def get_item_details(holding_id):
-    url = f"{BASE_URL}bibs/991000010789705251/holdings/{holding_id}/items/"  # Works if MMS ID hardcoded 991000010789705251
+# Function to use API to retrieve item details for an MMS ID and holding pair
+def get_item_details(mms_id, holding_id):
+    url = f"{BASE_URL}bibs/{mms_id}/holdings/{holding_id}/items/"  # Updated URL
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
         item_xml = response.text
-        print(item_xml)
         return item_xml
     else:
-        print(f"Failed to retrieve items for holding ID: {holding_id}")
+        print(f"Failed to retrieve items for MMS ID: {mms_id} and holding ID: {holding_id}")
         return None
 
 
-# Function to extract holding details from holdings XML
+# Function to extract specific fields from XML
 def extract_item_details(xml_string):
     soup = BeautifulSoup(xml_string, 'xml')
     item_details = []
@@ -65,7 +64,7 @@ def extract_item_details(xml_string):
     return item_details
 
 
-# Function to write xml details to a text file
+# Function to write specific fields to a text file
 def write_item_details(filename, item_details):
     with open(filename, 'a') as file:
         for item_detail in item_details:
@@ -75,19 +74,19 @@ def write_item_details(filename, item_details):
                 f"Physical_Material_Type: {physical_material_type}|Process Type: {process_type}\n")
 
 
-# Loop through each Holding ID and retrieve item details
-for holding_id in holding_ids:
-    item_xml = get_item_details(holding_id)
+# Loop through each MMS ID and holding pair and retrieve item details
+for mms_id, holding_id in holding_mms_pairs:
+    item_xml = get_item_details(mms_id.strip(), holding_id.strip())
     if item_xml:
         item_details = extract_item_details(item_xml)
         if item_details:
             write_item_details(OUTPUT_FILE, item_details)
-            print(f"Item details for {holding_id} appended to {OUTPUT_FILE}")
+            print(f"Item details for MMS ID: {mms_id} and holding ID: {holding_id} appended to {OUTPUT_FILE}")
         else:
             with open(ERROR_FILE, 'a') as file:
-                file.write(f"No item details for: {holding_id}\n")
-            print(f"No holding record for: {holding_id}. Written to {ERROR_FILE}")
+                file.write(f"No item details for MMS ID: {mms_id} and holding ID: {holding_id}\n")
+            print(f"No holding record for MMS ID: {mms_id} and holding ID: {holding_id}. Written to {ERROR_FILE}")
     else:
         with open(ERROR_FILE, 'a') as file:
-            file.write(f"Failed for Holding ID: {holding_id}\n")
-        print(f"Failed: {holding_id}. Written to {ERROR_FILE}")
+            file.write(f"Failed for MMS ID: {mms_id} and holding ID: {holding_id}\n")
+        print(f"Failed for MMS ID: {mms_id} and holding ID: {holding_id}. Written to {ERROR_FILE}")
