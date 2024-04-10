@@ -2,8 +2,6 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 
-# This script looks at a file of MMS and Holding IDs, and uses the Alma Sandbox API to extract certain item details from the XML into an output file
-
 # Constants for file names
 API_KEY_FILE = 'PSB.txt'
 HOLDING_IDS_FILE = 'items.txt'
