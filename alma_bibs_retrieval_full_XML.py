@@ -2,6 +2,8 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 
+# This will pull in entire XML records
+
 # Constants for file names
 API_KEY_FILE = 'PSB.txt'
 MMS_IDS_FILE = 'bibs.txt'
