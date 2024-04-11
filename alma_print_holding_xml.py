@@ -1,10 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-
-
-# This script pulls full holding XML based on MMS ID into an output file
-
+# This script prints holding XML to terminal
 
 # Read API key from file
 with open('PSB.txt', 'r') as file:
