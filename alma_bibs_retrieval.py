@@ -2,7 +2,7 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 
-# This will get certain XML fields to determine if electronic resource
+# This will get certain XML fields to determine if electronic resource bib or not 
 
 # Constants for file names
 API_KEY_FILE = 'PSB.txt'
