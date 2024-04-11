@@ -2,6 +2,8 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 
+# Uses Alma Sandbox API to pull certain item details [based on MMS/Holding ID] into an output file
+
 # Constants for file names
 API_KEY_FILE = 'PSB.txt'
 HOLDING_IDS_FILE = 'items.txt'
@@ -43,7 +45,7 @@ def get_item_details(mms_id, holding_id):
         item_xml = response.text
         return item_xml
     else:
-        print(f"Failed to retrieve items for MMS ID: {mms_id} and holding ID: {holding_id}")
+        print(f"Failed to retrieve items for MMS ID: {mms_id} and Holding ID: {holding_id}")
         return None
 
 
@@ -83,9 +85,9 @@ for mms_id, holding_id in holding_mms_pairs:
             print(f"Item details for MMS ID: {mms_id} and holding ID: {holding_id} appended to {OUTPUT_FILE}")
         else:
             with open(ERROR_FILE, 'a') as file:
-                file.write(f"No item details for MMS ID: {mms_id} and holding ID: {holding_id}\n")
-            print(f"No item details for MMS ID: {mms_id} and holding ID: {holding_id}. Written to {ERROR_FILE}")
+                file.write(f"No item details found for MMS ID: {mms_id} and Holding ID: {holding_id}\n")
+            print(f"No item details found for MMS ID: {mms_id} and Holding ID: {holding_id}. Written to {ERROR_FILE}")
     else:
         with open(ERROR_FILE, 'a') as file:
-            file.write(f"Failed for MMS ID: {mms_id} and holding ID: {holding_id}\n")
-        print(f"Failed for MMS ID: {mms_id} and holding ID: {holding_id}. Written to {ERROR_FILE}")
+            file.write(f"Failed for MMS ID: {mms_id} and Holding ID: {holding_id}\n")
+        print(f"Failed for MMS ID: {mms_id} and Holding ID: {holding_id}. Written to {ERROR_FILE}")
