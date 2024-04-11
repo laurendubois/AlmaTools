@@ -1,2 +1,2 @@
 # AlmaTools
-Some code to interact with the Alma Bibs API.
+Some code to interact with the Alma Sandbox API.
