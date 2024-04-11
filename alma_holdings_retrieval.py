@@ -27,7 +27,7 @@ if test_api.status_code == 400:
     print("\nInvalid API key - please confirm key has r/w permission for /bibs", )
     sys.exit()
 elif test_api.status_code != 200:
-    print(f"\nError: Failed to connect to API. Status code: Unknown")
+    print(f'\nError: Failed to connect to API. Status code: {test_api.status_code}')
     sys.exit()
 else:
     sys.stdout.write("OK\n")
